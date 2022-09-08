@@ -32,10 +32,10 @@ jobs:
         with:
             repository: numworks/epsilon
             ref: master
-            path: ${{env.CPY}}
-      - run: cd ${{env.CPY}};make PLATFORM=simulator TARGET=android
-      - run: cd ${{env.CPY}};make PLATFORM=simulator TARGET=android epsilon.apk
-      - run: cd ${{env.CPY}};make PLATFORM=simulator TARGET=android test.apk
+       #     path: ${{env.CPY}}
+      - run: make PLATFORM=simulator TARGET=android
+      - run: make PLATFORM=simulator TARGET=android epsilon.apk
+      - run: make PLATFORM=simulator TARGET=android test.apk
       - uses: actions/upload-artifact@master
         with:
           name: epsilon-android.apk
