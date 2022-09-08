@@ -25,7 +25,7 @@ env:
 jobs:
    android:
     runs-on: ubuntu-latest
-    if: ${{ github.repository != 'twingsister/epsilon-internal' }}
+    #if: ${{ github.repository != 'twingsister/epsilon-internal' }}
     steps:
       - run: pip3 install lz4 pypng stringcase
       - uses: actions/checkout@v2
