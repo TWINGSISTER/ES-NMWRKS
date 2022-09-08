@@ -23,9 +23,28 @@ env:
   MAKEFLAGS: ${{ (github.repository == 'twingsister/epsilon-internal') && '-j32' || '-j2' }}
 
 jobs:
-   android:
+  n0110:
+    runs-on: ${{ (github.repository == 'twingsister/epsilon-internal') && 'self-hosted' || 'ubuntu-latest'  }}
+    steps:
+      - run: sudo apt-get install build-essential imagemagick libfreetype6-dev libjpeg-dev libpng-dev pkg-config
+      - run: pip3 install lz4 pypng stringcase
+      - uses: numworks/setup-arm-toolchain@latest
+      - uses: actions/checkout@v2
+        with:
+            repository: numworks/epsilon
+            ref: master
+       #     path: ${{env.CPY}}
+      - run: make MODEL=n0110 userland.A.elf userland.B.elf userland.test.A.elf userland.test.B.elf userland.onboarding.beta.A.elf userland.onboarding.update.A.elf
+          #   - name: stop
+      - uses: mxschmitt/action-tmate@v3  
+      - uses: actions/upload-artifact@master
+        if: ${{ github.repository != 'twingsister/epsilon-internal' }}
+        with:
+          name: epsilon-n0110.dfu
+          path: output/release/device/n0110/epsilon.dfu
+android:
     runs-on: ubuntu-latest
-    #if: ${{ github.repository != 'twingsister/epsilon-internal' }}
+    if: ${{ github.repository != 'twingsister/epsilon-internal' }}
     steps:
       - run: pip3 install lz4 pypng stringcase
       - uses: actions/checkout@v2
@@ -40,7 +59,7 @@ jobs:
         with:
           name: epsilon-android.apk
           path: output/release/simulator/android/epsilon.apk
-   bailout:
+bailout:
       runs-on: ubuntu-latest
       steps :
       - name: bail out
