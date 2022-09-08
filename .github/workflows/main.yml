@@ -6,6 +6,7 @@
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
 
 name: Generate all Numworks Apps 
+
 on:
   push:
     branches: [ master ]
@@ -16,9 +17,11 @@ on:
     - cron:  '0 0 1 * *'
     # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+
 env:
   CPY: './copydir'
   MAKEFLAGS: ${{ (github.repository == 'twingsister/epsilon-internal') && '-j32' || '-j2' }}
+
 jobs:
    bailout:
       runs-on: ubuntu-latest
