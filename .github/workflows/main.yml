@@ -28,7 +28,7 @@ jobs:
       steps :
       - name: bail out
       #if:  steps.lastrelease.outputs.TAGNAME == steps.ggb.outputs.tag 
-      - run: exit 1
+        run: exit 1
     #   - name: stop
  #     uses: mxschmitt/action-tmate@v3   
    android:
