@@ -23,14 +23,6 @@ env:
   MAKEFLAGS: ${{ (github.repository == 'twingsister/epsilon-internal') && '-j32' || '-j2' }}
 
 jobs:
-   bailout:
-      runs-on: ubuntu-latest
-      steps :
-      - name: bail out
-      #if:  steps.lastrelease.outputs.TAGNAME == steps.ggb.outputs.tag 
-        run: exit 1
-    #   - name: stop
- #     uses: mxschmitt/action-tmate@v3   
    android:
     runs-on: ubuntu-latest
     if: ${{ github.repository != 'twingsister/epsilon-internal' }}
@@ -44,6 +36,15 @@ jobs:
         with:
           name: epsilon-android.apk
           path: output/release/simulator/android/epsilon.apk
+   bailout:
+      runs-on: ubuntu-latest
+      steps :
+      - name: bail out
+      #if:  steps.lastrelease.outputs.TAGNAME == steps.ggb.outputs.tag 
+        run: exit 1
+    #   - name: stop
+ #     uses: mxschmitt/action-tmate@v3   
+
    build:
     runs-on: ubuntu-latest
     steps:
